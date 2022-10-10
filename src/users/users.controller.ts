@@ -14,9 +14,10 @@ import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UserProfileDto } from './dto/user-profile.dto';
 import { IUsers } from './interfaces/users.interface';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('users')
+@ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'))
 @Controller('users')
 export class UsersController {
