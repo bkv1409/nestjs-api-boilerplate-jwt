@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as basicAuth from 'express-basic-auth';
 import { ConfigService } from '@nestjs/config';
@@ -12,6 +12,11 @@ async function bootstrap() {
   const configService = app.get<ConfigService>(ConfigService);
 
   app.setGlobalPrefix('api');
+  // or "app.enableVersioning()"
+  app.enableVersioning({
+      type: VersioningType.URI,
+      defaultVersion: ['1', '2']
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -48,6 +53,7 @@ async function bootstrap() {
   }
 
   app.enableCors();
+
   const port = configService.get<number>('NODE_API_PORT') || 3000;
   await app.listen(port);
   Logger.log(`Url for OpenApi: ${await app.getUrl()}/docs`, 'Swagger');

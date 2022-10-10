@@ -8,6 +8,12 @@ export class AppService {
     };
   }
 
+  getHelloVersion2() {
+    return {
+      message: 'This is a simple example of item returned by your APIs. V2',
+    }
+  }
+
   getSecureResource() {
     return {
       message:
