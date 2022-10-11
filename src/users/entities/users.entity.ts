@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Status } from '../../tasks/enums/status.enum';
 
 @Entity()
 export class Users {
@@ -18,4 +19,11 @@ export class Users {
 
   @Column({ length: 60 })
   password: string;
+
+  @Column({
+    type: 'enum',
+    enum: Status,
+    default: Status.disabled
+  })
+  status: Status[];
 }

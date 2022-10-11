@@ -15,7 +15,7 @@ async function bootstrap() {
   // or "app.enableVersioning()"
   app.enableVersioning({
       type: VersioningType.URI,
-      defaultVersion: ['1', '2']
+      // defaultVersion: ['1', '2']
   });
   app.useGlobalPipes(
     new ValidationPipe({
@@ -47,6 +47,7 @@ async function bootstrap() {
       .addBearerAuth()
       .addTag('auth')
       .addTag('users')
+      .setExternalDoc('Postman Collection', '/docs-json')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('/docs', app, document);

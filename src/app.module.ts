@@ -10,7 +10,9 @@ import { ForgotPasswordModule } from './forgot-password/forgot-password.module';
 import { ChangePasswordModule } from './change-password/change-password.module';
 import { MailerModule } from './mailer/mailer.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { TasksModule } from './tasks/tasks.module';
 import * as Yup from 'yup';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Module({
   imports: [
@@ -51,6 +53,7 @@ import * as Yup from 'yup';
           migrationsDir: config.get<string>('TYPEORM_MIGRATIONS_DIR'),
           subscribersDir: config.get<string>('TYPEORM_SUBSCRIBERS_DIR'),
         },
+        namingStrategy: new SnakeNamingStrategy(),
       }),
     }),
     LoginModule,
@@ -59,6 +62,7 @@ import * as Yup from 'yup';
     ForgotPasswordModule,
     ChangePasswordModule,
     MailerModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
